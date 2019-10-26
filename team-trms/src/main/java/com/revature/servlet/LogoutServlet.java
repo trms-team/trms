@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.revature.pojo.User;
 import com.revature.service.UserService;
 import com.revature.service.UserServiceImpl;
 
@@ -21,10 +22,10 @@ public class LogoutServlet extends HttpServlet {
 		
 	}
 	
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
 		HttpSession session = request.getSession(false);
 		
-		info("Logging out");
+		info(((User) session.getAttribute("user")).getUsername() + " is logging out");
 		
 		if (session != null) {
 			session.invalidate();

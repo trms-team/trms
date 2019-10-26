@@ -1,3 +1,23 @@
+class Form{
+	
+	constructor(email, phone, eventName, eventType, location, eventTime, description, cost, 
+			gradingFormat, workRelJust, workHoursMissed, files){
+	
+	this.email = email;
+	this.phone = phone;
+	this.eventName = eventName;
+	this.eventType = eventType;
+	this.location = location;
+	this.eventTime = eventTime;
+	this.description = description;
+	this.cost = cost;
+	this.gradingFormat = gradingFormat;
+	this.workRelJust = workRelJust;
+	this.workHoursMissed = workHoursMissed;
+	this.files = files
+	}
+}
+
 function calculateReim() {
     let e = document.getElementById("input-event-type");
     let eventType = e.options[e.selectedIndex].value;
@@ -42,8 +62,47 @@ function calculateReim() {
     document.getElementById("read-reimburse").value = reimAmount;
 }
 
+function getFiles(){
+	let myFiles = [];
+	let files = document.getElementById("input-files").files;
+	for(let i = 0; i < files.length; i++){
+		myFiles[i] = files[i];
+	}
+	return myFiles;
+}
+
+function formUpload(){
+	let xhr = new XMLHttpRequest();
+	let attachments = getFiles() || null;
+	let form = new Form(
+			document.getElementById("input-email").value,
+			document.getElementById("input-phone").value,
+			document.getElementById("input-event-name").value,
+			document.getElementById("input-event-type").value,
+			document.getElementById("input-location").value,
+			document.getElementById("input-event-date-time").value,
+			document.getElementById("input-description").value,
+			document.getElementById("input-cost").value,
+			document.getElementById("input-grading-format").value,
+			document.getElementById("input-work-rel-justification").value,
+			document.getElementById("input-work-hours-missed").value,
+			attachments
+	);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState === 4){
+	    	if(xhr.status === 200){
+	    		window.location.replace("employee-home.html");
+	    		console.log(form);
+	    		console.log(JSON.stringify(form));
+	    	}
+	    }
+	}
+	xhr.open("POST", "reimbursement-form", true);
+    xhr.send(JSON.stringify(form));
+}
 
 window.onload = function() {
     this.document.getElementById("input-event-type").addEventListener("change", calculateReim, false);
     this.document.getElementById("input-cost").addEventListener("change", calculateReim, false);
+    this.document.getElementById("submit-btn").addEventListener("click", formUpload, false);
 };

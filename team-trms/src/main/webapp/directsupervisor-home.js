@@ -52,14 +52,8 @@ function displayReimbursements(status, reimbursements) {
 
         let cell2 = newRow.insertCell(1);
         cell2.appendChild(document.createTextNode(r.employeeUsername));
-        
+
         let cell3 = newRow.insertCell(2);
-        let currentDate = new Date();
-        let eventDate = new Date(r.eventTime[0], r.eventTime[1] - 1, r.eventTime[2]);
-        // This is checking difference in milliseconds
-        if (eventDate - currentDate < 1209600000 && status === 'pending') {
-        	cell3.setAttribute("style", "text-decoration: underline; text-decoration-color: red;");
-        }
         cell3.appendChild(document.createTextNode(r.eventName));
         
         let cell4 = newRow.insertCell(3);
@@ -139,24 +133,24 @@ function displaySingleReimbursement(id) {
             if (c.directSupervisorStatus === 'ACCEPTED' && (c.departmentHeadStatus === 'PENDING' 
 	        		|| c.bencoStatus === 'PENDING')) {
 	        	showSingleRow(modalTable, "Date Accepted By You",
-	            `${c.directSupervisorTime[1]}/${c.directSupervisorTime[2]}/${c.directSupervisorTime[0]}`);  	
+	            `${r.directSupervisorTime[1]}/${r.directSupervisorTime[2]}/${r.directSupervisorTime[0]}`);  	
 	        }
 	        else if (c.directSupervisorStatus === 'ACCEPTED' && c.departmentHeadStatus === 'ACCEPTED' 
 	        		&& c.bencoStatus === 'ACCEPTED') {
 	        	showSingleRow(modalTable, "Date Approved By BenCo",
-	            	`${c.bencoTime[1]}/${c.bencoTime[2]}/${c.bencoTime[0]}`);  	
+	            	`${r.bencoTime[1]}/${r.bencoTime[2]}/${r.bencoTime[0]}`);  	
 	        }
 	        else if (c.directSupervisorStatus === 'REJECTED') {
 	        	showSingleRow(modalTable, "Date Rejected By You",
-	    			`${c.directSupervisorTime[1]}/${c.directSupervisorTime[2]}/${c.directSupervisorTime[0]}`);
+	    			`${r.directSupervisorTime[1]}/${r.directSupervisorTime[2]}/${r.directSupervisorTime[0]}`);
 	        }
 	        else if (c.departmentHeadStatus === 'REJECTED') {
 	        	showSingleRow(modalTable, "Date Rejected By Department Head",
-	    			`${c.departmentHeadTime[1]}/${c.departmentHeadTime[2]}/${c.departmentHeadTime[0]}`);  	
+	    			`${r.departmentHeadTime[1]}/${r.departmentHeadTime[2]}/${r.departmentHeadTime[0]}`);  	
 	        }
 	        else if (c.bencoStatus === 'REJECTED') {
 	        	showSingleRow(modalTable, "Date Rejected By BenCo",
-	        		`${c.bencoTime[1]}/${c.bencoTime[2]}/${c.bencoTime[0]}`);  	
+	        		`${r.bencoTime[1]}/${r.bencoTime[2]}/${r.bencoTime[0]}`);  	
 	        }
             
             showSingleRow(modalTable, "Employee Username", c.employeeUsername);
@@ -169,9 +163,9 @@ function displaySingleReimbursement(id) {
             showSingleRow(modalTable, "Event Name", c.eventName);
             let fixedEventType = formatEventType(c.eventType);
             showSingleRow(modalTable, "Event Type", fixedEventType);
-            let fixedTime = formatTime(c.eventTime[3], c.eventTime[4]);
+            let fixedTime = formatTime(r.eventTime[3], r.eventTime[4]);
             showSingleRow(modalTable, "Event Time", 
-                `${c.eventTime[1]}/${c.eventTime[2]}/${c.eventTime[0]} - ${fixedTime}`);
+                `${r.eventTime[1]}/${r.eventTime[2]}/${r.eventTime[0]} - ${fixedTime}`);
             showSingleRow(modalTable, "Location", c.location);
             showSingleRow(modalTable, "Description", c.description);
             showSingleRow(modalTable, "Cost", `$${c.cost.toFixed(2)}`);
@@ -182,7 +176,7 @@ function displaySingleReimbursement(id) {
             showSingleRow(modalTable, "Awarded Amount", `$${c.awardedAmount.toFixed(2)}`);
 
         	showSingleRow(modalTable, "Date Submitted",
-            	`${c.submissionTime[1]}/${c.submissionTime[2]}/${c.submissionTime[0]}`);
+            	`${r.submissionTime[1]}/${r.submissionTime[2]}/${r.submissionTime[0]}`);
             
             break;
         }
@@ -237,7 +231,7 @@ function formatEventType(eventType) {
     }	
 }	
 
-function formatTime(hour, minute) {	
+function formatTime(hour, minute) {
     let ampm;	
     let newHour = hour;	
 

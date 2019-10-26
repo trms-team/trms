@@ -47,7 +47,7 @@
 
 		<!-- Need to think about adding identifying name -->
 
-		<form class="reim-form" action="reimbursement-form" method="POST">
+		<div class="reim-form" id = "reim-form">
 			<div class="form-group row">
 				<label for="input-email" class="col-sm-2 col-form-label">Email</label>
 				<div class="col-sm-3">
@@ -177,9 +177,8 @@
 			</div>
 
 			<hr>
-			<input type="submit" class="btn btn-success" id="submit-btn"
-				value="Submit Form">
-		</form>
+			<button class="btn btn-success" id="submit-btn">Submit</button>
+		</div>
 	</div>
 	<script src='reimbursement-form.js'></script>
 </body>

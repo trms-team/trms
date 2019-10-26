@@ -38,8 +38,7 @@ public class DirSupHomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) (request.getSession().getAttribute("user"));
 		
-		if (user != null && user.getRoles().contains(Role.DIRECT_SUPERVISOR) &&
-				!user.getRoles().contains(Role.DEPARTMENT_HEAD)) {
+		if (user != null && user.getRoles().contains(Role.DIRECT_SUPERVISOR)) {
 			ObjectMapper om = new ObjectMapper();
 			String name = request.getPathInfo();
 			
@@ -68,9 +67,8 @@ public class DirSupHomeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) (request.getSession().getAttribute("user"));
-
-		if (user != null && user.getRoles().contains(Role.DIRECT_SUPERVISOR) &&
-				!user.getRoles().contains(Role.DEPARTMENT_HEAD)) {
+		
+		if (user != null && user.getRoles().contains(Role.DIRECT_SUPERVISOR)) {
 			ObjectMapper om = new ObjectMapper();
 			om.registerModule(new JavaTimeModule());
 			

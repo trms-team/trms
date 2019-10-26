@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
     public LoginServlet() {
         super();
     }
-    
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		User user = userService.login(username, password);
@@ -51,6 +51,8 @@ public class LoginServlet extends HttpServlet {
 			if (user.getRoles().contains(User.Role.EMPLOYEE)) {
 				response.sendRedirect("employee-home.html");
 			}
+			// This order is to give people with both dep head and dir sup
+			// roles the dep head page
 			else if (user.getRoles().contains(User.Role.DEPARTMENT_HEAD)) {
 				response.sendRedirect("departmenthead-home.html");
 			}

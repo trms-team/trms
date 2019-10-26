@@ -22,27 +22,11 @@ public interface ReimbursementService {
 	
 	public List<Reimbursement> showSupervisorRejected(String username);
 	
-	public List<Reimbursement> showDepartmentHeadPending(String username);
-	
-	public List<Reimbursement> showDepartmentHeadInProgress(String username);
-	
-	public List<Reimbursement> showDepartmentHeadAccepted(String username);
-	
-	public List<Reimbursement> showDepartmentHeadRejected(String username);
-	
-	public List<Reimbursement> showBenCoPending(String username);
-	
-	public List<Reimbursement> showBenCoAccepted(String username);
-	
-	public List<Reimbursement> showBenCoRejected(String username);
-	
 	public void submitReimbursement(Reimbursement newReimbursement);
 	
 	public void acceptReimbursement(Reimbursement reimbursement, List<Role> accepterRoles);
 	
 	public void rejectReimbursement(Reimbursement reimbursement, List<Role> rejecterRoles, String reasonRejected);
-	
-	public void updateReimbursementAmount(Reimbursement reimbursement);
 	
 	public List<Double> getPendingAndAwardedAmounts(String username);
 }
